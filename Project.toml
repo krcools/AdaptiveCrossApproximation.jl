@@ -1,6 +1,6 @@
 name = "AdaptiveCrossApproximation"
 uuid = "ef3ffb92-1c7b-43b8-a0d7-a7e2ce4fd1e5"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["JoshuaTetzner <joshua.tetzner@uni-rostock.de>"]
 
 [deps]
@@ -29,6 +29,7 @@ OhMyThreads = "0.8.4"
 ParallelKMeans = "1.1.0"
 Polynomials = "4.1.0"
 StaticArrays = "1.9.13"
+julia = "1.10"
 
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
