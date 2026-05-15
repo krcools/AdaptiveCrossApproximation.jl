@@ -72,6 +72,7 @@ Assemble a hierarchical matrix approximation of an operator on test and trial sp
   - `nearmatrixdata`: optional data passed to near-field assembly
   - `farmatrixdata`: optional data passed to far-field assembly
   - `scheduler`: thread scheduler used for assembly
+  - `skipassemblefars`: if true, skip the assembly of far-field blocks
 
 # Returns
 
@@ -99,6 +100,7 @@ function HMatrix(
     nearmatrixdata=defaultmatrixdata(operator, testspace, trialspace),
     farmatrixdata=defaultfarmatrixdata(operator, testspace, trialspace),
     scheduler=DynamicScheduler(),
+    skipassemblefars=false
 )
     spaceordering(tree, testspace, trialspace)
 
@@ -113,18 +115,20 @@ function HMatrix(
         scheduler=scheduler,
     )
 
-    fars = assemblefars(
-        operator,
-        testspace,
-        trialspace,
-        tree,
-        spaceordering;
-        maxrank=maxrank,
-        compressor=compressor,
-        isnear=isnear,
-        matrixdata=farmatrixdata,
-        scheduler=scheduler,
-    )
+    fars = skipassemblefars ?
+        BlockSparseMatrix[] :
+        assemblefars(
+            operator,
+            testspace,
+            trialspace,
+            tree,
+            spaceordering;
+            maxrank=maxrank,
+            compressor=compressor,
+            isnear=isnear,
+            matrixdata=farmatrixdata,
+            scheduler=scheduler,
+        )
 
     return HMatrix{eltype(nears)}(nears, fars, (length(testspace), length(trialspace)))
 end
