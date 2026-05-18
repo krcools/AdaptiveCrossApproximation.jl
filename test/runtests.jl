@@ -16,6 +16,7 @@ using AdaptiveCrossApproximation
     include("test_acabeast.jl")
 
     include("test_hmatrix.jl")
+    include("test_skipfars.jl")
 end
 
 @testitem "Code quality (Aqua.jl)" begin
